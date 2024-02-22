@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Control de Productos</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+    </head>
+    <body>
+        <br/>
+        <header th:replace="~{Plantilla/plantilla :: encabezado}"></header>
+        <br/>
+        <div th:if="${supermercados != null and !supermercados.empty}" class="container mt-4">
+            <table border="2" class="table" align="center">
+                <tr style="background:grey" align="center">
+                    <th value="Escribe aqui el Codigo">[[#{message.codigo}]]</th>
+                    <th>[[#{message.producto}]]</th>
+                    <th>[[#{message.existencias}]]</th>
+                    <th>[[#{message.precio}]]</th>
+                    <th>[[#{message.boton.cambiar}]]</th>
+                    <th>[[#{message.boton.borrar}]]</th>
+                </tr>
+                <tr th:each="supermercado : ${supermercados}" align="center">
+                    <td th:text="${supermercado.codigo}"></td>
+                    <td th:text="${supermercado.producto}"></td>
+                    <td th:text="${supermercado.existencias}"></td>
+                    <td th:text="${supermercado.precio}"></td>
+                    <td><a th:href="@{/cambiar/} + ${supermercado.id_producto}" class="btn btn-warning" th:text="Cambiar"/></td>                
+                    <td> <a th:href="@{/borrar(id_producto=${supermercado.id_producto})}" class="btn btn-danger" th:text="Borrar"/></td>
+                </tr>
+            </table> 
+            <br/>
+            <div>
+                <a th:href="@{/nuevoProducto}" class="btn btn-info">[[#{message.altaProducto}]]</a>
+            </div>
+            <form th:action="@{/buscarProducto}" method="get" align="right">
+                <h6>* Busca por Codigo, Producto, Existencia o Precio</h6>
+                <input type="text" th:name="palabraClave" id="palabraClave"  th:value="${palabraClave}" placeholder="Dato a buscar"></input>
+                <button type="submit" class="btn btn-info">BUSCAR</button>
+                <a th:href="@{/}" class="btn btn-danger" type="submit">Cancelar</a>
+            </form>
+        </div>
+        </br>
+        <h5 th:if="${supermercados == null or supermercados.empty}" align="center">[[#{message.listavacia}]]</h5>
+        </br>
+        <footer th:replace="~{Plantilla/plantilla :: piepagina}">
+
+        </footer>
+    </body>
+</html>
