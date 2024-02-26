@@ -1,6 +1,6 @@
 package com.example.web;
 
-import com.example.domain.Supermercado;
+import com.example.model.Supermercado;
 
 import java.util.List;
 import javax.validation.Valid;
@@ -26,14 +26,16 @@ public class ControladorREST {
     @Autowired
     private SupermercadoServicio supermercadoServicio;
 
+    
     @GetMapping("/")
     public String comienzo(Model model) {
-
         List<Supermercado> supermercados = supermercadoServicio.listaProductos();
         model.addAttribute("supermercados", supermercados);
+        log.info("Mostramos los productos que ya tenemos en la BBDD");
         return "indice";
     }
 
+    
     @GetMapping("/nuevoProducto")
     public String nuevoProducto(Supermercado supermercado) {
         return "cambiar";
@@ -52,23 +54,19 @@ public class ControladorREST {
 
     @GetMapping("/buscarProducto")
     public String buscar(@RequestParam(value = "palabraClave") String palabraClave, Model model, Supermercado supermercado) {
-        log.info("mi palabra clave es................ " + palabraClave);
-        log.info("producto: " + palabraClave);
+        log.info("Mi palabra clave a buscar es: " + palabraClave);
         if (palabraClave.isEmpty()) {
-            log.info(palabraClave);
             return "indice";
         } else {
             List<Supermercado> supermercados = supermercadoServicio.listaProductos();
             List<Supermercado> supermercadoLista = new ArrayList();
             for (int i = 0; i < supermercados.size(); i++) {
-                log.info("mi producto obtenido" + supermercados.get(i).getProducto());
                 if (supermercados.get(i).toString().toLowerCase().contains(palabraClave.toLowerCase())) {
                     supermercadoLista.add(supermercados.get(i));
-                    log.info("numero" + i + " " + supermercados.get(i));
+                    log.info("Producto de mi lista numero: " + i + " que tiene el valor a buscar " + supermercados.get(i));
                 }
             }
             model.addAttribute("supermercados", supermercadoLista);
-            log.info(model.toString());
         }
         return "indice";
     }
@@ -84,6 +82,7 @@ public class ControladorREST {
     public String cambiar(Supermercado supermercado, Model model) {
         supermercado = supermercadoServicio.buscarSupermercado(supermercado);
         model.addAttribute("supermercado", supermercado);
+        log.info("Se procede a modificar el producto con id : " + supermercado.getId_producto());
         return "cambiar";
     }
 

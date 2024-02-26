@@ -1,7 +1,7 @@
 
 package com.example.servicio;
 
-import com.example.domain.Supermercado;
+import com.example.model.Supermercado;
 import java.util.List;
 
 
@@ -15,7 +15,7 @@ public interface SupermercadoServicio {
     
     public List<Supermercado> listaProductos();
   
-    public List <Supermercado> buscarPorProducto(String palabraClave);
+   public List <Supermercado> buscarPorProducto(String palabraClave);
     
     
 }

@@ -41,7 +41,16 @@
             </form>
         </div>
         </br>
-        <h5 th:if="${supermercados == null or supermercados.empty}" align="center">[[#{message.listavacia}]]</h5>
+        <div th:if="${supermercados == null or supermercados.empty}" align="center">[[#{message.listavacia}]]
+            <br/><br/>
+            <div>
+                <a th:href="@{/nuevoProducto}" class="btn btn-info">[[#{message.altaProducto}]]</a>
+                <a th:href="@{/}" class="btn btn-danger" type="submit">Cancelar</a>
+            </div>
+            
+        </div>
+        
+        
         </br>
         <footer th:replace="~{Plantilla/plantilla :: piepagina}">
 

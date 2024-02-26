@@ -1,7 +1,7 @@
 package com.example.servicio;
 
 import com.example.DAO.SupermercadoDAO;
-import com.example.domain.Supermercado;
+import com.example.model.Supermercado;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,14 +18,13 @@ public class SupermercadoServicioImp implements SupermercadoServicio {
     @Override
     @Transactional(readOnly = true)
     public List<Supermercado> listaProductos() {
-
         return (List<Supermercado>) supermercadoDao.findAll();
     }
 
     @Override
     @Transactional
     public void save(Supermercado supermercado) {
-            supermercadoDao.save(supermercado);
+            supermercadoDao.save(supermercado); 
     }
 
     @Override
@@ -40,9 +39,8 @@ public class SupermercadoServicioImp implements SupermercadoServicio {
         return supermercadoDao.findById(supermercado.getId_producto()).orElse(null);
     }
   
-    @Override
+   @Override
     public List<Supermercado> buscarPorProducto(String palabraClave) {
-        log.info("entra a buscar producto");
         return supermercadoDao.findByProducto(palabraClave);
 
     }

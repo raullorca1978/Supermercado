@@ -1,13 +1,13 @@
 
 package com.example.DAO;
 
-import com.example.domain.Supermercado;
+import com.example.model.Supermercado;
 import java.util.List;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface SupermercadoDAO extends CrudRepository<Supermercado, Long>{
+public interface SupermercadoDAO extends JpaRepository<Supermercado, Long>{
 
-    //Buscar productos por palabra introducida
+   //Busca productos por palabra clave
    List<Supermercado> findByProducto(String palabraClave);
     
 }
