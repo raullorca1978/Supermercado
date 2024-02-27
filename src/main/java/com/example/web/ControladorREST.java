@@ -17,7 +17,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.example.servicio.SupermercadoServicio;
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 
 @Controller
 @Slf4j
@@ -56,7 +60,7 @@ public class ControladorREST {
     public String buscar(@RequestParam(value = "palabraClave") String palabraClave, Model model, Supermercado supermercado) {
         log.info("Mi palabra clave a buscar es: " + palabraClave);
         if (palabraClave.isEmpty()) {
-            return "indice";
+            return "busqueda";
         } else {
             List<Supermercado> supermercados = supermercadoServicio.listaProductos();
             List<Supermercado> supermercadoLista = new ArrayList();
@@ -68,7 +72,7 @@ public class ControladorREST {
             }
             model.addAttribute("supermercados", supermercadoLista);
         }
-        return "indice";
+        return "busqueda";
     }
 
     @GetMapping("/borrar")
@@ -86,4 +90,16 @@ public class ControladorREST {
         return "cambiar";
     }
 
+    @GetMapping("/export/all")
+    public ResponseEntity<InputStreamResource> exportExcel(){
+        ByteArrayInputStream stream= supermercadoServicio.exportExcel();
+        
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachment; filename=\"Listado-Productos.xls\"");
+        
+        return ResponseEntity.ok().headers(headers).body(new InputStreamResource(stream));
+    
+    }
+
+    
 }

@@ -9,5 +9,6 @@ public interface SupermercadoDAO extends JpaRepository<Supermercado, Long>{
 
    //Busca productos por palabra clave
    List<Supermercado> findByProducto(String palabraClave);
+   
     
 }

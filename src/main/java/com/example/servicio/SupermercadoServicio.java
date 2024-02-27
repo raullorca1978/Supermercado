@@ -2,6 +2,7 @@
 package com.example.servicio;
 
 import com.example.model.Supermercado;
+import java.io.ByteArrayInputStream;
 import java.util.List;
 
 
@@ -16,6 +17,10 @@ public interface SupermercadoServicio {
     public List<Supermercado> listaProductos();
   
    public List <Supermercado> buscarPorProducto(String palabraClave);
+   
+   public ByteArrayInputStream exportExcel();
+   
+
     
     
 }
