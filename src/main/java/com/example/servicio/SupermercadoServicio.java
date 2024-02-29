@@ -16,11 +16,8 @@ public interface SupermercadoServicio {
     
     public List<Supermercado> listaProductos();
   
-   public List <Supermercado> buscarPorProducto(String palabraClave);
-   
-   public ByteArrayInputStream exportExcel();
-   
+    public ByteArrayInputStream exportExcel();
+    public ByteArrayInputStream exportExcelPalabra(String palabraClave);
 
-    
     
 }

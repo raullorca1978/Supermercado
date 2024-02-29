@@ -38,7 +38,7 @@ public class ControladorREST {
         log.info("Mostramos los productos que ya tenemos en la BBDD");
         return "indice";
     }
-
+    
     
     @GetMapping("/nuevoProducto")
     public String nuevoProducto(Supermercado supermercado) {
@@ -56,9 +56,13 @@ public class ControladorREST {
         return "redirect:/";
     }
 
+    private String palabraClaveGuardada;
+    
     @GetMapping("/buscarProducto")
     public String buscar(@RequestParam(value = "palabraClave") String palabraClave, Model model, Supermercado supermercado) {
         log.info("Mi palabra clave a buscar es: " + palabraClave);
+        palabraClaveGuardada=palabraClave;
+        
         if (palabraClave.isEmpty()) {
             return "busqueda";
         } else {
@@ -67,8 +71,11 @@ public class ControladorREST {
             for (int i = 0; i < supermercados.size(); i++) {
                 if (supermercados.get(i).toString().toLowerCase().contains(palabraClave.toLowerCase())) {
                     supermercadoLista.add(supermercados.get(i));
-                    log.info("Producto de mi lista numero: " + i + " que tiene el valor a buscar " + supermercados.get(i));
+                    log.info("Producto de mi lista numero " + i + " tiene el valor a buscar " +palabraClave.toUpperCase()+ " en " + supermercados.get(i).toString());
                 }
+            }
+            if(supermercadoLista.isEmpty()){
+                log.info("No se ha encontrado "+palabraClave.toUpperCase()+" en el stock");
             }
             model.addAttribute("supermercados", supermercadoLista);
         }
@@ -95,11 +102,20 @@ public class ControladorREST {
         ByteArrayInputStream stream= supermercadoServicio.exportExcel();
         
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "attachment; filename=\"Listado-Productos.xls\"");
+        headers.add("Content-Disposition", "attachment; filename=\"Listado_Productos.xls\"");
         
         return ResponseEntity.ok().headers(headers).body(new InputStreamResource(stream));
-    
     }
-
     
+    @GetMapping("/export/all/palabraClave")
+    public ResponseEntity<InputStreamResource> exportExcel(String palabraClave){
+        log.info("Mi palabra claveguardada es...................: " + this.palabraClaveGuardada);
+        ByteArrayInputStream stream= supermercadoServicio.exportExcelPalabra(this.palabraClaveGuardada);
+        
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachment; filename=\"Listado_Productos_"+palabraClaveGuardada.toLowerCase()+".xls\"");
+        
+        return ResponseEntity.ok().headers(headers).body(new InputStreamResource(stream));
+    }
+ 
 }

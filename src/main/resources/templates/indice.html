@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Control de Productos</title>
@@ -10,30 +10,32 @@
         <br/>
         <header th:replace="~{Plantilla/plantilla :: encabezado}"></header>
         <br/>
-        <div th:if="${supermercados != null and !supermercados.empty}" class="container mt-4">
-            <table border="2" class="table" align="center">
-                <tr style="background:grey" align="center">
-                    <th>[[#{message.codigo}]]</th>
+        <div class="container mt-4">
+            <a th:href="@{/nuevoProducto}" class="btn btn-info" align="left">[[#{message.altaProducto}]]</a>
+            <a style="position:relative;right:-750px; top:0em;" th:href="@{/export/all}" class="btn btn-warning">Exportar a Excel</a>
+        </div>
+        <div th:if="${supermercados != null and !supermercados.empty}" style="width:auto; height:350px; overflow:auto;" class="container mt-4">
+            <table  border="2" class="table" align="auto">
+                <tr style="color:white;background-color:grey" align="center">
+                <th>[[#{message.codigo}]]</th></b>
                     <th>[[#{message.producto}]]</th>
                     <th>[[#{message.existencias}]]</th>
                     <th>[[#{message.precio}]]</th>
                     <th>[[#{message.boton.cambiar}]]</th>
                     <th>[[#{message.boton.borrar}]]</th>
-                </tr>
+                </tr>      
                 <tr th:each="supermercado : ${supermercados}" align="center">
                     <td th:text="${supermercado.codigo}"></td>
                     <td th:text="${supermercado.producto}"></td>
                     <td th:text="${supermercado.existencias}"></td>
                     <td th:text="${supermercado.precio}"></td>
                     <td><a th:href="@{/cambiar/} + ${supermercado.id_producto}" class="btn btn-warning" th:text="Cambiar"/></td>                
-                    <td> <a th:href="@{/borrar(id_producto=${supermercado.id_producto})}" class="btn btn-danger" th:text="Borrar"/></td>
+                    <td> <a th:href="@{/borrar(id_producto=${supermercado.id_producto})}" class="btn btn-danger" th:text="Borrar"/></td>        
                 </tr>
-            </table> 
-            <br/>
-            
-                <a th:href="@{/nuevoProducto}" class="btn btn-info">[[#{message.altaProducto}]]</a>
-                <a th:href="@{/export/all}" class="btn btn-warning">Exportar a Excel</a>
-            
+            </table>
+        </div>
+        <br/>
+        <div class="container mt-4">
             <form th:action="@{/buscarProducto}" method="get" align="right">
                 <h6>* Busca por Codigo, Producto, Existencia o Precio</h6>
                 <input type="text" th:name="palabraClave" id="palabraClave"  th:value="${palabraClave}" placeholder="Dato a buscar"></input>
@@ -41,20 +43,14 @@
                 <a th:href="@{/}" class="btn btn-danger" type="submit">Cancelar</a>
             </form>
         </div>
-        </br>
         <div th:if="${supermercados == null or supermercados.empty}" align="center">[[#{message.listavacia}]]
             <br/><br/>
             <div>
                 <a th:href="@{/nuevoProducto}" class="btn btn-info">[[#{message.altaProducto}]]</a>
                 <a th:href="@{/}" class="btn btn-danger" type="submit">Cancelar</a>
             </div>
-            
         </div>
-        
-        
-        </br>
         <footer th:replace="~{Plantilla/plantilla :: piepagina}">
-
         </footer>
     </body>
 </html>
