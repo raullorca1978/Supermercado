@@ -1,32 +1,19 @@
 package com.example.web;
 
 import java.util.Locale;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-
 import org.springframework.web.servlet.LocaleResolver;
-
-//import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
-
 @Configuration
-
 public class WebConfig implements WebMvcConfigurer {
 
-    /*@Bean
-    public LocaleResolver localresolver() {
-        SessionLocaleResolver slr = new SessionLocaleResolver();
-        slr.setDefaultLocale(new Locale("es"));
-        return slr;
-    }
-     */
+
     @Bean
     public LocaleResolver LocaleResolver() {
         SessionLocaleResolver localeResolver = new SessionLocaleResolver();
@@ -34,6 +21,12 @@ public class WebConfig implements WebMvcConfigurer {
         return localeResolver;
     }
 
+    @Bean(name = "localeResolver")
+    public LocaleResolver getLocaleResolver() {
+        return new CookieLocaleResolver();
+    }
+    
+    
     @Bean
     public LocaleChangeInterceptor localChangeInterceptor() {
         LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
@@ -46,20 +39,5 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(localChangeInterceptor());
     }
 
-    /* @Bean
-    public AcceptHeaderLocaleResolver localeResolver(WebMvcProperties mvcProperties) {
-        AcceptHeaderLocaleResolver localeResolver = new AcceptHeaderLocaleResolver() {
-            @Override
-            public void setLocale(HttpServletRequest request, HttpServletResponse response, Locale locale) {
-                LocaleContextHolder.setLocale(locale);
-            }
-        };
-
-        localeResolver.setDefaultLocale(mvcProperties.getLocale());
-        return localeResolver;
-    }
-
-    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
-               <property name="defaultLocale" value="en" />               
-</bean>*/
+    
 }

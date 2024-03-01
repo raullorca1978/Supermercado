@@ -16,7 +16,7 @@
 
             <br/>
             <div align="center" class="form-group">
-                <label class="col-sm-2 col-form-label">Codigo</label>
+                <label class="col-sm-2 col-form-label">[[#{message.codigo}]]</label>
                 <div>
                     <input type="text" th:field="*{codigo}">
                         <small class="form-text text-danger" th:if="${#fields.hasErrors('codigo')}" th:errors="*{codigo}"></small>
@@ -24,21 +24,21 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 col-form-label">Producto</label>
+                <label class="col-sm-2 col-form-label">[[#{message.producto}]]</label>
                 <div>
                     <input type="text" th:field="*{producto}">
                         <small class="form-text text-danger" th:if="${#fields.hasErrors('producto')}" th:errors="*{producto}"></small>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 col-form-label">Existencias</label>
+                <label class="col-sm-2 col-form-label">[[#{message.existencias}]]</label>
                 <div>
                     <input type="number" th:field="*{existencias}">
                         <small class="form-text text-danger" th:if="${#fields.hasErrors('existencias')}" th:errors="*{existencias}"></small>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 col-form-label">Precio</label>
+                <label class="col-sm-2 col-form-label">[[#{message.precio}]]</label>
                 <div>
                     <input type="text" th:field="*{precio}">
                         <small class="form-text text-danger" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></small>
