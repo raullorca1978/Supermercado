@@ -2,12 +2,13 @@ package com.example.servicio;
 
 import com.example.DAO.SupermercadoDAO;
 import com.example.model.Supermercado;
-import com.example.web.ControladorREST;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+
 
 @Slf4j
 @Service
@@ -110,12 +112,11 @@ public class SupermercadoServicioImp implements SupermercadoServicio {
         if (palabraClave.isEmpty()) {
             log.error("ERRRORRRRR EN PALABRA CLAVE");
         } else {
-            // List<Supermercado> supermercados = supermercadoServicio.listaProductos();
-            //List<Supermercado> supermercadoLista = new ArrayList();
+           
             for (int i = 0; i < supermercados.size(); i++) {
                 if (supermercados.get(i).toString().toLowerCase().contains(palabraClave.toLowerCase())) {
                     supermercadoLista.add(supermercados.get(i));
-                    // log.info("Producto de mi lista numero: " + i + " que tiene el valor a buscar " + supermercados.get(i));
+                   
                 }
             }
         }
@@ -139,5 +140,6 @@ public class SupermercadoServicioImp implements SupermercadoServicio {
         }
         return new ByteArrayInputStream(stream.toByteArray());
     }
+
 
 }

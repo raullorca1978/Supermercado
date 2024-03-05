@@ -17,11 +17,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.example.servicio.SupermercadoServicio;
+
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+
 
 @Controller
 @Slf4j
@@ -97,7 +101,7 @@ public class ControladorREST {
         return "cambiar";
     }
 
-    @GetMapping("/export/all")
+    @GetMapping("/export/all/excel")
     public ResponseEntity<InputStreamResource> exportExcel(){
         ByteArrayInputStream stream= supermercadoServicio.exportExcel();
         
@@ -107,7 +111,7 @@ public class ControladorREST {
         return ResponseEntity.ok().headers(headers).body(new InputStreamResource(stream));
     }
     
-    @GetMapping("/export/all/palabraClave")
+    @GetMapping("/export/all/excel/palabraClave")
     public ResponseEntity<InputStreamResource> exportExcel(String palabraClave){
         log.info("Mi palabra claveguardada es...................: " + this.palabraClaveGuardada);
         ByteArrayInputStream stream= supermercadoServicio.exportExcelPalabra(this.palabraClaveGuardada);
@@ -117,5 +121,40 @@ public class ControladorREST {
         
         return ResponseEntity.ok().headers(headers).body(new InputStreamResource(stream));
     }
- 
+
+   @GetMapping("/ordenarCodigo")
+    public String OrdenarPorCodigo(Model model){
+         List<Supermercado> supermercados = supermercadoServicio.listaProductos();
+        Collections.sort(supermercados, (Supermercado a, Supermercado b) -> a.getCodigo().compareTo(b.getCodigo()));
+         model.addAttribute("supermercados", supermercados);
+         return "indice";
+    }
+    
+    @GetMapping("/ordenarProducto")
+    public String OrdenarProducto(Model model){
+        List<Supermercado> supermercados = supermercadoServicio.listaProductos();     
+        Collections.sort(supermercados, (Supermercado a, Supermercado b) -> a.getProducto().toLowerCase().compareTo(b.getProducto().toLowerCase()));
+        model.addAttribute("supermercados", supermercados);
+        return "indice";
+    }
+    
+    
+    @GetMapping("/ordenarExistencias")
+    public String OrdenarExistencias(Model model){
+        List<Supermercado> supermercados = supermercadoServicio.listaProductos();     
+        Collections.sort(supermercados, (Supermercado a, Supermercado b) -> a.getExistencias().compareTo(b.getExistencias()));
+        model.addAttribute("supermercados", supermercados);
+        return "indice";
+    }
+   
+    
+    @GetMapping("/ordenarPrecio")
+    public String OrdenarPrecio(Model model){
+        List<Supermercado> supermercados = supermercadoServicio.listaProductos();     
+        Collections.sort(supermercados, (Supermercado a, Supermercado b) -> a.getPrecio().compareTo(b.getPrecio()));
+        model.addAttribute("supermercados", supermercados);
+        return "indice";
+    }
 }
+    
+

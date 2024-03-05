@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     </head>
     <body>
         <br/>
@@ -12,16 +13,15 @@
         <br/>
         <div class="container mt-4">
             <a th:href="@{/nuevoProducto}" class="btn btn-info" align="left">[[#{message.altaProducto}]]</a>
-            <a style="position:relative;right:-775px; top:0em;" th:href="@{/export/all}" class="btn btn-warning">[[#{message.boton.excel}]]</a>
-            
+            <a style="position:relative;right:-775px; top:0em;" th:href="@{/export/all/excel}" class="btn btn-warning">[[#{message.boton.excel}]]</a>
         </div>
         <div th:if="${supermercados != null and !supermercados.empty}" style="width:auto; height:350px; overflow:auto;" class="container mt-4">
             <table  border="2" class="table" align="auto">
                 <tr style="color:white;background-color:grey" align="center">
-                <th>[[#{message.codigo}]]</th></b>
-                    <th>[[#{message.producto}]]</th>
-                    <th>[[#{message.existencias}]]</th>
-                    <th>[[#{message.precio}]]</th>
+                    <th>[[#{message.codigo}]]  <a th:href="@{/ordenarCodigo}" style="color:white" class="bi bi-arrow-down"></a></th>
+                    <th>[[#{message.producto}]]  <a th:href="@{/ordenarProducto}" style="color:white" class="bi bi-arrow-down"></a></th>
+                    <th>[[#{message.existencias}]]  <a th:href="@{/ordenarExistencias}" style="color:white" class="bi bi-arrow-down"></a></th>
+                    <th>[[#{message.precio}]]  <a th:href="@{/ordenarPrecio}" style="color:white" class="bi bi-arrow-down"></a></th>
                     <th>[[#{message.cambiar}]]</th>
                     <th>[[#{message.borrar}]]</th>
                 </tr>      

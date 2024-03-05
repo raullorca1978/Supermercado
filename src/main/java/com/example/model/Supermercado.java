@@ -30,6 +30,7 @@ public class Supermercado implements Serializable{
     
     @CodigoRepetido
     @Column(name="Codigo")
+    @Pattern(regexp="^[A-Z]\\d{4}$", message="{valido.regexp.codigo.error}")
     @NotBlank(message="{NotBlank.supermercado.codigo}")
     private String codigo;
     
@@ -42,8 +43,8 @@ public class Supermercado implements Serializable{
     private String existencias;
     
     @Column(name="Precio")
-    @NotBlank(message="{NotBlank.supermercado.precio}")
     @Pattern(regexp="^\\d+(,\\d+)*$", message="{valido.regexp.error}")
+    @NotBlank(message="{NotBlank.supermercado.precio}")
     private String precio;
     
    

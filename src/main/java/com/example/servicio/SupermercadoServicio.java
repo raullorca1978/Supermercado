@@ -17,6 +17,7 @@ public interface SupermercadoServicio {
     public List<Supermercado> listaProductos();
   
     public ByteArrayInputStream exportExcel();
+    
     public ByteArrayInputStream exportExcelPalabra(String palabraClave);
 
     

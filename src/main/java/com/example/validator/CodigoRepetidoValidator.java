@@ -1,6 +1,5 @@
 package com.example.validator;
 
-
 import com.example.model.Supermercado;
 import com.example.servicio.SupermercadoServicio;
 import jakarta.validation.ConstraintValidator;
@@ -9,7 +8,6 @@ import jakarta.validation.ConstraintValidatorContext;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-
 
 @Slf4j
 public class CodigoRepetidoValidator implements ConstraintValidator<CodigoRepetido, String> {
